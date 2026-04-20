@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Wedding Party | R&R</title>
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><g stroke=%22%23ff6b6b%22 stroke-width=%228%22 fill=%22none%22><circle cx=%2240%22 cy=%2250%22 r=%2225%22/><circle cx=%2260%22 cy=%2250%22 r=%2225%22/></g></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><g stroke=%22%23ff6b6b%22 stroke-width=%2210%22 fill=%22none%22><circle cx=%2238%22 cy=%2250%22 r=%2222%22/><circle cx=%2262%22 cy=%2250%22 r=%2222%22/></g></svg>">
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
     
@@ -18,8 +18,8 @@
             color: #222;
             text-align: center;
             overflow-x: hidden;
-            line-height: 1.8; /* Розтягнуто міжрядковий інтервал */
-            letter-spacing: 0.5px; /* Розтягнуто відстань між буквами */
+            line-height: 1.8;
+            letter-spacing: 0.5px;
         }
 
         .hero {
@@ -54,7 +54,6 @@
             margin: auto;
         }
 
-        /* ТАЙМЕР НА БІЛОМУ ФОНІ */
         .timer-section {
             padding: 40px 0 20px;
             background: #fff;
@@ -90,7 +89,7 @@
             display: block;
             font-size: clamp(1.4rem, 6vw, 2rem);
             font-weight: 900;
-            color: #ff6b6b; /* Цифри кольору основної теми */
+            color: #ff6b6b;
         }
 
         .timer-label {
@@ -167,6 +166,7 @@
             transition: 0.3s;
         }
 
+        .btn:hover { background: #ff6b6b; }
         .btn:active { transform: scale(0.96); }
 
         footer {
@@ -201,7 +201,7 @@
         <span class="emoji-ring">😎💍</span>
         <div class="badge">Так-так, ми це зробили!</div>
         <h1>Ми одружуємось!</h1>
-        <div class="names">Ростислав & Руслана</div>
+        <div class="names">Руслана & Ростислав</div>
         <p style="margin-top: 20px; opacity: 0.95;">вирішили більше не відкладати і офіційно стати сім’єю ❤️</p>
     </div>
 
@@ -260,7 +260,7 @@
         
         <div class="rsvp" style="margin-top: 60px;">
             <p style="font-weight: bold; margin-bottom: 20px;">Будь ласка, заповніть анкету до 15 травня</p>
-            <button class="btn" onclick="fireworkShow()">Я ПРИЙДУ! 🚀</button>
+            <a href="https://forms.gle/QmTTAsrV5D8heo7P6" class="btn" target="_blank">Я ПРИЙДУ! 🚀</a>
         </div>
 
         <footer>
@@ -269,34 +269,39 @@
         </footer>
     </div>
 
-    <!-- Бібліотека феєрверків -->
+    <!-- Скрипт феєрверків -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script>
-        // ТАЙМЕР
+        // ЛОГІКА ТАЙМЕРА
         function updateTimer() {
-            const weddingDate = new Date("July 3, 2026 14:00:00").getTime();
+            const targetDate = new Date("July 3, 2026").getTime();
             const now = new Date().getTime();
-            const diff = weddingDate - now;
+            const diff = targetDate - now;
 
             if (diff <= 0) {
                 document.getElementById("countdown").innerHTML = "<h3>ЦЕЙ ДЕНЬ НАСТАВ! 🥂</h3>";
                 return;
             }
 
-            document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-            document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById("mins").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById("secs").innerText = Math.floor((diff % (1000 * 60)) / 1000);
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("mins").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("secs").innerText = seconds.toString().padStart(2, '0');
         }
         setInterval(updateTimer, 1000);
         updateTimer();
 
-        // ФЕЄРВЕРК НА ВЕСЬ ЕКРАН
-        function fireworkShow() {
-            var duration = 6 * 1000;
+        // ФУНКЦІЯ ФЕЄРВЕРКУ (на весь екран)
+        function startFireworkShow() {
+            var duration = 5 * 1000; // тривалість 5 секунд
             var animationEnd = Date.now() + duration;
-            var defaults = { startVelocity: 35, spread: 360, ticks: 60, zIndex: 9999 };
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 
             function randomInRange(min, max) {
                 return Math.random() * (max - min) + min;
@@ -306,12 +311,12 @@
                 var timeLeft = animationEnd - Date.now();
 
                 if (timeLeft <= 0) {
-                    window.open("https://forms.gle/QmTTAsrV5D8heo7P6", "_blank");
                     return clearInterval(interval);
                 }
 
-                var particleCount = 60 * (timeLeft / duration);
+                var particleCount = 50 * (timeLeft / duration);
                 
+                // запускаємо з випадкових точок
                 confetti(Object.assign({}, defaults, { 
                     particleCount, 
                     origin: { x: randomInRange(0.1, 0.9), y: Math.random() - 0.2 } 
@@ -319,14 +324,9 @@
             }, 250);
         }
 
-        // Салют при завантаженні сторінки
+        // Запуск при завантаженні сторінки
         window.onload = function() {
-            confetti({ 
-                particleCount: 150, 
-                spread: 70, 
-                origin: { y: 0.6 }, 
-                colors: ['#ff6b6b', '#ffc107', '#222'] 
-            });
+            startFireworkShow();
         };
     </script>
 </body>

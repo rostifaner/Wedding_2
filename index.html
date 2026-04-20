@@ -2,9 +2,13 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Wedding Party | R&R</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><g stroke=%22%23ff6b6b%22 stroke-width=%228%22 fill=%22none%22><circle cx=%2240%22 cy=%2250%22 r=%2225%22/><circle cx=%2260%22 cy=%2250%22 r=%2225%22/></g></svg>">
+    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -13,45 +17,98 @@
             background: #fff;
             color: #222;
             text-align: center;
+            overflow-x: hidden;
+            line-height: 1.8; /* Розтягнуто міжрядковий інтервал */
+            letter-spacing: 0.5px; /* Розтягнуто відстань між буквами */
         }
 
         .hero {
-            background: #ff6b6b; /* Яскравий колір вечірки */
+            background: #ff6b6b;
             color: white;
-            padding: 60px 20px;
+            padding: 60px 20px 80px;
             clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 9vw, 3rem);
             font-weight: 900;
             text-transform: uppercase;
-            margin: 10px 0;
+            margin: 15px 0;
             line-height: 1.1;
+            letter-spacing: 2px;
         }
 
-        .emoji-ring { font-size: 3rem; margin-bottom: 10px; display: block; }
+        .emoji-ring { font-size: 3.5rem; margin-bottom: 15px; display: block; }
 
         .names {
             font-family: 'Caveat', cursive;
-            font-size: 3rem;
+            font-size: clamp(2.8rem, 11vw, 4rem);
             color: #fff;
             margin: 20px 0;
+            line-height: 1.2;
         }
 
         .container {
-            padding: 20px;
-            max-width: 500px;
+            padding: 40px 20px;
+            max-width: 600px;
             margin: auto;
         }
 
+        /* ТАЙМЕР НА БІЛОМУ ФОНІ */
+        .timer-section {
+            padding: 40px 0 20px;
+            background: #fff;
+        }
+
+        .timer-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+            font-weight: 700;
+            color: #ff6b6b;
+        }
+
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 0 auto;
+            max-width: 500px;
+        }
+
+        .timer-block {
+            background: #fff;
+            padding: 15px 5px;
+            border-radius: 15px;
+            flex: 1;
+            border: 1px solid #eee;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        .timer-num {
+            display: block;
+            font-size: clamp(1.4rem, 6vw, 2rem);
+            font-weight: 900;
+            color: #ff6b6b; /* Цифри кольору основної теми */
+        }
+
+        .timer-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #888;
+            letter-spacing: 1px;
+        }
+
         .plan-card {
-            background: #f8f9fa;
-            border-left: 5px solid #ff6b6b;
-            padding: 20px;
-            margin: 30px 0;
+            background: #fdfdfd;
+            border-left: 6px solid #ff6b6b;
+            padding: 30px;
+            margin: 40px 0;
             text-align: left;
-            border-radius: 0 15px 15px 0;
+            border-radius: 0 20px 20px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
         }
 
         .plan-card h3 {
@@ -59,53 +116,63 @@
             color: #ff6b6b;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .alert-box {
-            background: #fff3cd;
+            background: #fffcf0;
             border: 2px dashed #ffc107;
-            padding: 20px;
-            border-radius: 15px;
-            margin: 30px 0;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 45px 0;
         }
 
-        .alert-box h4 { margin: 0 0 10px 0; color: #856404; }
+        .alert-box h4 { margin: 0 0 15px 0; color: #856404; font-size: 1.1rem; }
 
         .dress-code {
             display: flex;
             justify-content: space-around;
-            margin: 30px 0;
+            margin: 50px 0;
+            gap: 15px;
         }
 
-        .item { font-size: 0.9rem; font-weight: bold; }
-        .item span { font-size: 2.5rem; display: block; margin-bottom: 10px; }
+        .item { font-size: 0.95rem; font-weight: bold; flex: 1; }
+        .item span { font-size: 3rem; display: block; margin-bottom: 15px; }
 
         .gift {
-            font-size: 1.1rem;
-            padding: 20px;
+            font-size: 1.15rem;
+            padding: 40px 10px;
             border-top: 1px solid #eee;
-            margin-top: 40px;
+            margin-top: 50px;
         }
 
         .btn {
             display: block;
             background: #222;
             color: white;
-            padding: 20px;
+            padding: 22px;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 60px;
             font-weight: bold;
-            margin: 30px 0;
+            margin: 40px auto;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            letter-spacing: 2px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            max-width: 320px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
         }
+
+        .btn:active { transform: scale(0.96); }
 
         footer {
             font-family: 'Caveat', cursive;
-            font-size: 2rem;
-            margin: 50px 0;
+            font-size: 2.2rem;
+            margin: 80px 0 60px;
             color: #ff6b6b;
         }
 
@@ -113,10 +180,18 @@
             display: inline-block;
             background: #222;
             color: #fff;
-            padding: 5px 15px;
-            font-size: 0.8rem;
-            border-radius: 20px;
-            margin-bottom: 10px;
+            padding: 7px 20px;
+            font-size: 0.85rem;
+            border-radius: 30px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 450px) {
+            .hero { padding-bottom: 50px; }
+            #countdown { gap: 8px; }
+            .timer-block { padding: 12px 2px; }
+            .plan-card { padding: 20px; }
         }
     </style>
 </head>
@@ -126,55 +201,67 @@
         <span class="emoji-ring">😎💍</span>
         <div class="badge">Так-так, ми це зробили!</div>
         <h1>Ми одружуємось!</h1>
-        <div class="names">Руслана & Ростислав</div>
-        <p>вирішили більше не відкладати і офіційно стати сім’єю ❤️</p>
+        <div class="names">Ростислав & Руслана</div>
+        <p style="margin-top: 20px; opacity: 0.95;">вирішили більше не відкладати і офіційно стати сім’єю ❤️</p>
+    </div>
+
+    <div class="timer-section">
+        <div class="timer-title">До щасливої миті залишилось:</div>
+        <div id="countdown">
+            <div class="timer-block"><span class="timer-num" id="days">00</span><span class="timer-label">Днів</span></div>
+            <div class="timer-block"><span class="timer-num" id="hours">00</span><span class="timer-label">Годин</span></div>
+            <div class="timer-block"><span class="timer-num" id="mins">00</span><span class="timer-label">Хвилин</span></div>
+            <div class="timer-block"><span class="timer-num" id="secs">00</span><span class="timer-label">Секунд</span></div>
+        </div>
     </div>
 
     <div class="container">
-        <p style="font-weight: bold;">Без вас це святкування буде не таким веселим 😉</p>
+        <p style="font-weight: bold; font-size: 1.1rem; margin: 20px 0 40px;">Без вас це святкування буде не таким веселим 😉</p>
 
-        <div class="divider">⸻</div>
-
-        <h2 style="text-align: left;">📍 План такий:</h2>
+        <h2 style="text-align: left; text-transform: uppercase; letter-spacing: 2px; font-size: 1.2rem; margin-bottom: 30px;">📍 План такий:</h2>
 
         <div class="plan-card">
             <h3><span>💍</span> Вінчання</h3>
-            <p><strong>📅 3 липня</strong><br>
-            🕓 14:00 — у церкві</p>
+            <p><strong>📅 3 липня 2026</strong><br>
+            🕓 14:00 — Церква</p>
+            <p><small style="color: #666;">Вінчання відбудеться у церкві у вузькому сімейному колі, але за бажанням будемо раді бачити Вас. Святкування з друзями — наступного дня!</small></p>
         </div>
 
         <div class="plan-card">
-            <h3><span>🏡</span> Продовження банкету</h3>
+            <h3><span>🏡</span> Святкування</h3>
             <p><strong>📅 04.07 — 05.07.2026</strong><br>
             📍 Москаленки</p>
-          <p><small>2 доби драйву у колі найкращих людей.</small></p>
-            <p><small>Готуйтесь до справжніх пригод!</small></p>
+            <p><strong>2 доби драйву у колі найкращих людей.</strong></p>
+            <p><small style="color: #666;">Готуйтесь до справжніх пригод!</small></p>
         </div>
 
         <div class="alert-box">
             <h4>🎤 Важливий момент:</h4>
-            <p>Від кожного гостя ми очікуємо конкурс 😏<br>
-            <small>(так-так, готуйтесь — відмазки не приймаються)</small></p>
+            <p>Конкурси від гостей — за бажанням 😏<br>
+            <small>Але! За найкращий конкурс буде приємний подарунок 🎁</small></p>
         </div>
 
         <div class="dress-code">
             <div class="item">
                 <span>👗</span>
-                Вільний стиль
+                <p>Вільний стиль</p>
             </div>
             <div class="item">
                 <span>🏖</span>
-                Купальники
+                <p>Купальники</p>
             </div>
         </div>
-        <p><strong>Не забудьте взяти купальники — буде гаряче 🔥</strong></p>
+        <p style="margin-bottom: 40px;"><strong>Не забудьте взяти купальники — буде гаряче 🔥</strong></p>
 
         <div class="gift">
-            <p>💛 Найцінніше для нас — це ваша присутність</p>
-            <p>А якщо захочете ще й порадувати нас — <strong>конверт завжди в тренді 😉</strong></p>
+            <p style="margin-bottom: 15px;">💛 Найцінніше для нас — це ваша присутність</p>
+            <p>А якщо захочете ще й порадувати нас — <br><strong>конверт завжди в тренді 😉</strong></p>
         </div>
-
-        <a href="https://t.me/glhf_ss" class="btn">Я ПРИЙДУ! 🚀</a>
+        
+        <div class="rsvp" style="margin-top: 60px;">
+            <p style="font-weight: bold; margin-bottom: 20px;">Будь ласка, заповніть анкету до 15 травня</p>
+            <button class="btn" onclick="fireworkShow()">Я ПРИЙДУ! 🚀</button>
+        </div>
 
         <footer>
             Буде весело. Дуже.<br>
@@ -182,5 +269,65 @@
         </footer>
     </div>
 
+    <!-- Бібліотека феєрверків -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        // ТАЙМЕР
+        function updateTimer() {
+            const weddingDate = new Date("July 3, 2026 14:00:00").getTime();
+            const now = new Date().getTime();
+            const diff = weddingDate - now;
+
+            if (diff <= 0) {
+                document.getElementById("countdown").innerHTML = "<h3>ЦЕЙ ДЕНЬ НАСТАВ! 🥂</h3>";
+                return;
+            }
+
+            document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("mins").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("secs").innerText = Math.floor((diff % (1000 * 60)) / 1000);
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // ФЕЄРВЕРК НА ВЕСЬ ЕКРАН
+        function fireworkShow() {
+            var duration = 6 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 35, spread: 360, ticks: 60, zIndex: 9999 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    window.open("https://forms.gle/QmTTAsrV5D8heo7P6", "_blank");
+                    return clearInterval(interval);
+                }
+
+                var particleCount = 60 * (timeLeft / duration);
+                
+                confetti(Object.assign({}, defaults, { 
+                    particleCount, 
+                    origin: { x: randomInRange(0.1, 0.9), y: Math.random() - 0.2 } 
+                }));
+            }, 250);
+        }
+
+        // Салют при завантаженні сторінки
+        window.onload = function() {
+            confetti({ 
+                particleCount: 150, 
+                spread: 70, 
+                origin: { y: 0.6 }, 
+                colors: ['#ff6b6b', '#ffc107', '#222'] 
+            });
+        };
+    </script>
 </body>
 </html>
